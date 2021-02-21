@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class GrapplingGun : MonoBehaviour
 {
@@ -6,7 +9,7 @@ public class GrapplingGun : MonoBehaviour
     private LineRenderer lr;
     private Vector3 grapplePoint;
     public LayerMask whatIsGrappleable;
-    public Transform gunTip, Camera, player;
+    public Transform gunTip, player, Camera;
     private float maxDistance = 100f;
     private SpringJoint joint;
 
@@ -39,7 +42,7 @@ public class GrapplingGun : MonoBehaviour
     void StartGrapple()
     {
         RaycastHit hit;
-        if (Physics.Raycast(GetComponent<Camera>().position, GetComponent<Camera>().forward, out hit, maxDistance, whatIsGrappleable))
+        if (Physics.Raycast(Camera.position, Camera.forward, out hit, maxDistance, whatIsGrappleable))
         {
             grapplePoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
@@ -95,4 +98,3 @@ public class GrapplingGun : MonoBehaviour
         return grapplePoint;
     }
 }
-
