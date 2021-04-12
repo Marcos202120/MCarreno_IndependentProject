@@ -8,36 +8,52 @@ public class PlayerController : MonoBehaviour
 
     public float Tspeed = 20.0f;
     private float horizontalInput;
+    public float jumpForce;
+    public float gravityModifier;
+    private bool isGrounded = true;
+    private Rigidbody rbPlayer;
+    public bool gameOver = false;
 
-    public Vector3 jump;
-    public float jumpForce = 16.0f;
-
-    public bool isGrounded;
-    Rigidbody rb;
+    public ParticleSystem fog;
+    public ParticleSystem blood;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        jump = new Vector3(0.0f, 2.0f, 0.0f);
+        rbPlayer = GetComponent<Rigidbody>();
+        Physics.gravity *= gravityModifier;
+        blood.Stop();
+        fog.Play();
     }
-    void OnCollisionStay()
-    {
-        isGrounded = true;
-    }
+
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-
-        transform.Translate(Vector3.right * Time.deltaTime * Tspeed * horizontalInput);
-
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if(gameOver == false)
         {
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
+            horizontalInput = Input.GetAxis("Horizontal");
+            transform.Translate(Vector3.right * Time.deltaTime * Tspeed * horizontalInput);
+            bool jump = Input.GetKeyDown(KeyCode.Space);
+
+            if (jump && isGrounded && !gameOver)
+            {
+
+                rbPlayer.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isGrounded = false;
+            }
         }
 
-
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+        else if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            gameOver = true;
+            blood.Play();
+            fog.Stop();
+        }
+    }
 }
