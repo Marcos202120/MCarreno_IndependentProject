@@ -5,19 +5,28 @@ using UnityEngine;
 public class ZombieBGAnimation : MonoBehaviour
 {
     public GameObject Player;
-    
+
+    public ParticleSystem fire;
     Animator animator;
     private PlayerController playercontroller;
     int killHash;
+    int dieHash;
+    public float rate = 20;
     AudioSource audiosource;
+
+    private MoveBack moveBack;
+
     // Start is called before the first frame update
     void Start()
     {
         playercontroller = GameObject.Find("Player").GetComponent<PlayerController>();
+        moveBack = GetComponent<MoveBack>();
         animator = GetComponent<Animator>();
         killHash = Animator.StringToHash("Kill");
+        dieHash = Animator.StringToHash("Die");
         audiosource = GetComponent<AudioSource>();
         audiosource.playOnAwake = true;
+        fire.Stop();
 
     }
 
@@ -36,5 +45,18 @@ public class ZombieBGAnimation : MonoBehaviour
             audiosource.Play();
 
         }
+        
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        bool dying = animator.GetBool(dieHash);
+
+        if (other.CompareTag("Obstacle") && !dying)
+        {
+            fire.Play();
+            animator.SetBool(dieHash, true);
+            moveBack.speed = 2;
+        }
+    }
+
 }

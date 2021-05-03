@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Obstacle
+  - Sword
+  - Enemy
+  - EnemyBG
   layers:
   - Default
   - TransparentFX

@@ -1539,7 +1539,7 @@ GameObject:
   - component: {fileID: 9123806342896649545}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Obstacle
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1621,7 +1621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topOfScene: 45
-  bottomOfScene: -50
+  bottomOfScene: -60
 --- !u!114 &-6147282181972552422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1648,6 +1648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c958411bc23be4080761c726154e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 7881193910567178412, guid: a4e9bf79fcfa17745bca85ed4074b29f, type: 3}
   die: {fileID: 8300000, guid: 973f808d47d11df4fb5d90dd90e6982c, type: 3}
 --- !u!82 &9123806342896649545
 AudioSource:

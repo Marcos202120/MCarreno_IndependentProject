@@ -11,16 +11,25 @@ public class SpawnEnemies : MonoBehaviour
     public float time = 1;
     public float rate = 1.5f;
     private PlayerController playercontroller;
+    public AudioClip kill;
+    AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("SpawnRandomEnemy", time, rate);
         playercontroller = GameObject.Find("Player").GetComponent<PlayerController>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(playercontroller.gameOver == true)
+        {
+            audioSource.clip = kill;
+            audioSource.Play();
+        }
     }
     void SpawnRandomEnemy()
     {

@@ -1258,7 +1258,7 @@ GameObject:
   - component: {fileID: 4808960011404668019}
   m_Layer: 0
   m_Name: Parasyte
-  m_TagString: Obstacle
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1463,6 +1463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6808d4aceb227a041b1f9676695a5a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 7881193910567178412, guid: a4e9bf79fcfa17745bca85ed4074b29f, type: 3}
   die: {fileID: 8300000, guid: 973f808d47d11df4fb5d90dd90e6982c, type: 3}
 --- !u!1 &5727080310903063517
 GameObject:

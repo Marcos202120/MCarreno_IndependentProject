@@ -20,5 +20,14 @@ public class MoveBack : MonoBehaviour
         {
             transform.Translate(movement * Time.deltaTime * speed);
         }
+       
+
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && playercontroller.powerPicked == true && playercontroller.enemy == true)
+        {
+            speed = 3;
+        }
     }
 }
