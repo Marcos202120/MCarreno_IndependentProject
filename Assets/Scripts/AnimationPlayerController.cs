@@ -10,6 +10,7 @@ public class AnimationPlayerController : MonoBehaviour
     int killHash;
 
     private PlayerController playercontroller;
+    private GameManager gameManager;
  
     AudioSource audiosource;
     public AudioClip run;
@@ -19,14 +20,17 @@ public class AnimationPlayerController : MonoBehaviour
     void Start()
     {
         playercontroller = GameObject.Find("Player").GetComponent<PlayerController>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         animator = GetComponent<Animator>();
         isJumpingHash = Animator.StringToHash("Isjumping");
         dieHash = Animator.StringToHash("Dead");
         killHash = Animator.StringToHash("Kill");
-
-        audiosource = GetComponent<AudioSource>();
-        audiosource.playOnAwake = false;
-
+        if(gameManager.paused == false)
+        {
+            audiosource = GetComponent<AudioSource>();
+            audiosource.playOnAwake = false;
+        }
+        
     }
 
     // Update is called once per frame
@@ -51,8 +55,12 @@ public class AnimationPlayerController : MonoBehaviour
         if (playercontroller.gameOver == true && !dead)
         {
             animator.SetBool(dieHash, true);
-            audiosource.clip = run;
-            audiosource.Stop();
+            if(gameManager.paused == true)
+            {
+                audiosource.clip = run;
+                audiosource.Stop();
+            }
+            
 
         }
         if (playercontroller.powerPicked == true && !iskilling && playercontroller.enemy == true)

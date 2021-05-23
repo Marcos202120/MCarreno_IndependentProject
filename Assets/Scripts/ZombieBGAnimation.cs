@@ -15,18 +15,28 @@ public class ZombieBGAnimation : MonoBehaviour
     AudioSource audiosource;
 
     private MoveBack moveBack;
+    private GameManager gameManager;
+
 
     // Start is called before the first frame update
     void Start()
     {
         playercontroller = GameObject.Find("Player").GetComponent<PlayerController>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         moveBack = GetComponent<MoveBack>();
         animator = GetComponent<Animator>();
         killHash = Animator.StringToHash("Kill");
         dieHash = Animator.StringToHash("Die");
         audiosource = GetComponent<AudioSource>();
-        audiosource.playOnAwake = true;
+        if (gameManager.paused == true)
+        {
+            audiosource.playOnAwake = true;
+
+        }
+
         fire.Stop();
+
 
     }
 
@@ -43,6 +53,7 @@ public class ZombieBGAnimation : MonoBehaviour
             
             animator.SetBool(killHash, true);
             audiosource.Play();
+                
 
         }
         
@@ -58,5 +69,6 @@ public class ZombieBGAnimation : MonoBehaviour
             moveBack.speed = 2;
         }
     }
+   
 
 }

@@ -2016,14 +2016,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 7881193910567178412, guid: a4e9bf79fcfa17745bca85ed4074b29f, type: 3}
-  bG:
-  - {fileID: 8477044037587046263}
   fire: {fileID: 1185745243971080806}
   rate: 20
-  xrandPos: 3.5
-  y: 0
-  zrandpos: -42
-  ZrandPos: -47
 --- !u!82 &3392480188189461099
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2036,7 +2030,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a12625473ea4dd8478dfa271dd391a7d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.04
   m_Pitch: 1
   Loop: 0
   Mute: 0

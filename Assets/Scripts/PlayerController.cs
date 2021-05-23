@@ -23,16 +23,34 @@ public class PlayerController : MonoBehaviour
     public bool enemy = false;
     public AudioClip dead;
     AudioSource audiosource;
+
+    public GameObject sun;
+    public float sunSpawnTime;
+    public float nightSpawnTime;
+    public float lightIntensity = 1;
+    public float multiplier = 10;
     
+    public Light playerLantern;
+    public float time = 119;
+    public bool night = false;
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
         rbPlayer = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
         blood.Stop();
-        fog.Play();
+        fog.Stop();
         audiosource = GetComponent<AudioSource>();
         audiosource.playOnAwake = false;
+
+        playerLantern = GameObject.Find("Spot Light").GetComponent<Light>();
+        Invoke("LightIntensityIncrease", time);
+        sunSpawnTime = Time.time + 60.0f;
+        nightSpawnTime = Time.time + 120.0f;
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -52,7 +70,23 @@ public class PlayerController : MonoBehaviour
                 isGrounded = false;
             }
         }
-       
+        
+        if (Time.time > sunSpawnTime)
+        {
+            night = true;
+            sun.SetActive(false);
+            sunSpawnTime = Time.time + 60.0f;
+            fog.Play();
+            multiplier = 10;
+        }
+       if(Time.time > nightSpawnTime)
+        {
+            night = false;
+            sun.SetActive(true);
+            nightSpawnTime = Time.time + 120.0f;
+            fog.Stop();
+            multiplier = 1;
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -65,17 +99,19 @@ public class PlayerController : MonoBehaviour
         {
             gameOver = true;
             blood.Play();
-            fog.Stop();
+            
             audiosource.clip = dead;
             audiosource.Play();
         }
-        if (collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("Enemy") && powerPicked)
+        if (collision.gameObject.CompareTag("Enemy") && powerPicked)
         {
             enemy = true;
         }
         if(powerPicked == false)
         {
             enemy = false;
+            gameManager.powerUpIndicator.SetActive(false);
+
         }
 
     }
@@ -86,7 +122,14 @@ public class PlayerController : MonoBehaviour
             powerPicked = true;
             Destroy(other.gameObject);
             powerUp.SetActive(true);
+            gameManager.powerUpIndicator.SetActive(true);
         }
-
     }
+    void LightIntensityIncrease()
+    {
+        playerLantern.intensity = lightIntensity * multiplier;
+        fog.Play();
+    }   
+
+    
 }

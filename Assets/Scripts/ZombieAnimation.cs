@@ -7,6 +7,7 @@ public class ZombieAnimation : MonoBehaviour
     public GameObject Player;
     Animator animator;
     private PlayerController playercontroller;
+    private GameManager gameManager;
     int killHash;
     int biteHash;
     int dieHash;
@@ -19,11 +20,16 @@ public class ZombieAnimation : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playercontroller = GameObject.Find("Player").GetComponent<PlayerController>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         killHash = Animator.StringToHash("Kill");
         biteHash = Animator.StringToHash("Bite");
         dieHash = Animator.StringToHash("Die");
-        audiosource = GetComponent<AudioSource>();
-        audiosource.playOnAwake = false;
+        if(gameManager.paused == false)
+        {
+            audiosource = GetComponent<AudioSource>();
+            audiosource.playOnAwake = false;
+        }
+        
     }
 
     // Update is called once per frame
@@ -44,10 +50,8 @@ public class ZombieAnimation : MonoBehaviour
         bool kill = animator.GetBool(killHash);
 
         if (collision.gameObject.CompareTag("Player") && playercontroller.gameOver == true && !kill)
-        {
+        {           
             
-            
-
             transform.position = Player.transform.position;
             animator.SetBool(killHash, true);
             audiosource.clip = die;

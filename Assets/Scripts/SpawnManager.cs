@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnRandomAnimal", time, rate);
+        InvokeRepeating("SpawnRandomEnemy", time, rate);
         playercontroller = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
@@ -22,7 +22,7 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
     }
-    void SpawnRandomAnimal()
+    void SpawnRandomEnemy()
     {
         if(playercontroller.gameOver == false)
         {
