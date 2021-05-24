@@ -9,18 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Swing and shoot.unity
     guid: ab1a3b7e48dd4b94b972748b9aab4818
   - enabled: 0
-    path: Assets/Scenes/MainMenu.unity
-    guid: 71ff563a7f402834f98c0832fce8ce49
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Zombie runner.unity
     guid: 83493f8ed2f5ded40906b69211fab82d
   - enabled: 0
-    path: Assets/Scenes/End.unity
-    guid: b67d9a680e1b5d24688d8bd10f6422d8
-  - enabled: 1
-    path: Assets/Scenes/M.unity
-    guid: c965e535a6b3b8744a30205c07ad2c55
-  - enabled: 1
-    path: Assets/Scenes/E.unity
-    guid: 7af79b4106c63294daa2e8541eea92ef
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
