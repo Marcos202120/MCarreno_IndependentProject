@@ -71,19 +71,19 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        if (Time.time > sunSpawnTime)
+        if (Time.timeSinceLevelLoad > sunSpawnTime)
         {
             night = true;
             sun.SetActive(false);
-            sunSpawnTime = Time.time + 60.0f;
+            sunSpawnTime = Time.timeSinceLevelLoad + 60.0f;
             fog.Play();
             multiplier = 10;
         }
-       if(Time.time > nightSpawnTime)
+       if(Time.timeSinceLevelLoad > nightSpawnTime)
         {
             night = false;
             sun.SetActive(true);
-            nightSpawnTime = Time.time + 120.0f;
+            nightSpawnTime = Time.timeSinceLevelLoad + 120.0f;
             fog.Stop();
             multiplier = 1;
         }

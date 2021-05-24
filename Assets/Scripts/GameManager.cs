@@ -19,21 +19,28 @@ public class GameManager : MonoBehaviour
     public bool paused = true;
     public bool hard = false;
 
+    public GameObject[] zombieBG;
+    public float bgTime = 3;
+    public float spawnTime;
     // Start is called before the first frame update
     void Start()
     {
         playercontroller = GameObject.Find("Player").GetComponent<PlayerController>();
-        score = 0;
-        
-     
+        score = 1;
+        spawnTime = Time.time + 5.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(playercontroller.gameOver == false && score < Time.timeSinceLevelLoad)
+        {
+            score++;
+            finalTime.text = "Your time alive was " + score;
+
+        }
+        time.text = "Time: " + (int)Time.timeSinceLevelLoad;
         
-        time.text = "Time: " + score + (int)Time.timeSinceLevelLoad;
-        finalTime.text = "Your time alive was " + score + (int)Time.timeSinceLevelLoad;
         if (playercontroller.gameOver == true)
         {
             ending.gameObject.SetActive(true);
@@ -52,7 +59,11 @@ public class GameManager : MonoBehaviour
                 pauseMenu.SetActive(true);
             }
         }
-       
+        if (Time.timeSinceLevelLoad > spawnTime)
+        {
+            StartCoroutine(BGZombieSpawn());
+            spawnTime = Time.timeSinceLevelLoad + 5.0f;
+        }
     }
     public void unpauseButton()
     {
@@ -69,5 +80,15 @@ public class GameManager : MonoBehaviour
         // Quit Game
         Application.Quit();
     }
-   
+    IEnumerator BGZombieSpawn()
+    {
+        yield return new WaitForSeconds(bgTime);
+        float x = 3.5f;
+        float randZpos = Random.Range(-42, -43);
+        float randXPos = Random.Range(-x, x);
+        Vector3 randomPos = new Vector3(randXPos, 0, randZpos);
+        int zombieBGIndex = Random.Range(0, zombieBG.Length);
+        Instantiate(zombieBG[zombieBGIndex], randomPos, zombieBG[zombieBGIndex].transform.rotation);
+    }
+  
 }
